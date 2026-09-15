@@ -1,0 +1,886 @@
+{
+  "assignment_id": "magic-joy-5-unit-1",
+  "textbook_id": "magic-joy-5",
+  "unit_id": "unit-1",
+  "title": "Unit 1",
+  "source_status": "manually_verified_from_supplied_source",
+  "notes": "Golden Dataset. Answers were manually verified against user-supplied Magic Joy 5 Unit 1 worksheet and answer-key images. Do not normalize or rewrite source values.",
+  "supported_question_types": [
+    "listen_and_circle",
+    "listen_and_check",
+    "listen_and_choose",
+    "read_and_check",
+    "fill_in",
+    "look_and_write"
+  ],
+  "supported_response_modes": [
+    "circle_selection",
+    "check_selection",
+    "handwriting"
+  ],
+  "sections": [
+    { "section_id": "A", "title": "Listen and circle." },
+    { "section_id": "B", "title": "Listen and check." },
+    { "section_id": "C", "title": "Listen and choose." },
+    { "section_id": "D", "title": "Read and check." },
+    { "section_id": "E", "title": "Fill in." },
+    { "section_id": "F", "title": "Look and write." }
+  ],
+  "questions": [
+    {
+      "question_id": "MJ5-U1-A1",
+      "section": "A",
+      "question_number": 1,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A1-O2"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A1-O1",
+          "option_id": "MJ5-U1-A1-O1",
+          "label": "ping",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A1-O2",
+          "option_id": "MJ5-U1-A1-O2",
+          "label": "pink",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-A2",
+      "section": "A",
+      "question_number": 2,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A2-O2"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A2-O1",
+          "option_id": "MJ5-U1-A2-O1",
+          "label": "sunk",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A2-O2",
+          "option_id": "MJ5-U1-A2-O2",
+          "label": "sung",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-A3",
+      "section": "A",
+      "question_number": 3,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A3-O1"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A3-O1",
+          "option_id": "MJ5-U1-A3-O1",
+          "label": "wink",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A3-O2",
+          "option_id": "MJ5-U1-A3-O2",
+          "label": "wing",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-A4",
+      "section": "A",
+      "question_number": 4,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A4-O2"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A4-O1",
+          "option_id": "MJ5-U1-A4-O1",
+          "label": "rank",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A4-O2",
+          "option_id": "MJ5-U1-A4-O2",
+          "label": "rang",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-A5",
+      "section": "A",
+      "question_number": 5,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A5-O1"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A5-O1",
+          "option_id": "MJ5-U1-A5-O1",
+          "label": "Ming",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A5-O2",
+          "option_id": "MJ5-U1-A5-O2",
+          "label": "mink",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-A6",
+      "section": "A",
+      "question_number": 6,
+      "question_type": "listen_and_circle",
+      "response_mode": "circle_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-A6-O1"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-A6-O1",
+          "option_id": "MJ5-U1-A6-O1",
+          "label": "think",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-A6-O2",
+          "option_id": "MJ5-U1-A6-O2",
+          "label": "thing",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-B1",
+      "section": "B",
+      "question_number": 1,
+      "question_type": "listen_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-B1-O2"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-B1-O1",
+          "option_id": "MJ5-U1-B1-O1",
+          "label": null,
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-B1-O2",
+          "option_id": "MJ5-U1-B1-O2",
+          "label": null,
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-B2",
+      "section": "B",
+      "question_number": 2,
+      "question_type": "listen_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-B2-O1"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-B2-O1",
+          "option_id": "MJ5-U1-B2-O1",
+          "label": null,
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-B2-O2",
+          "option_id": "MJ5-U1-B2-O2",
+          "label": null,
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-B3",
+      "section": "B",
+      "question_number": 3,
+      "question_type": "listen_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-B3-O1"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-B3-O1",
+          "option_id": "MJ5-U1-B3-O1",
+          "label": null,
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-B3-O2",
+          "option_id": "MJ5-U1-B3-O2",
+          "label": null,
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-B4",
+      "section": "B",
+      "question_number": 4,
+      "question_type": "listen_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "selected": ["MJ5-U1-B4-O2"] },
+      "page_number": 4,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-B4-O1",
+          "option_id": "MJ5-U1-B4-O1",
+          "label": null,
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-B4-O2",
+          "option_id": "MJ5-U1-B4-O2",
+          "label": null,
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-C1",
+      "section": "C",
+      "question_number": 1,
+      "question_type": "listen_and_choose",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "option": "A", "selected": ["MJ5-U1-C1-O1"] },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-C1-O1",
+          "option_id": "MJ5-U1-C1-O1",
+          "label": "Yes, they do.",
+          "choice_letter": "A",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-C1-O2",
+          "option_id": "MJ5-U1-C1-O2",
+          "label": "Yes, she does.",
+          "choice_letter": "B",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-C1-O3",
+          "option_id": "MJ5-U1-C1-O3",
+          "label": "Yes, they want some apple juice.",
+          "choice_letter": "C",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-C2",
+      "section": "C",
+      "question_number": 2,
+      "question_type": "listen_and_choose",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "expected_answer": { "option": "B", "selected": ["MJ5-U1-C2-O2"] },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-C2-O1",
+          "option_id": "MJ5-U1-C2-O1",
+          "label": "Yes, they do.",
+          "choice_letter": "A",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-C2-O2",
+          "option_id": "MJ5-U1-C2-O2",
+          "label": "They like milk.",
+          "choice_letter": "B",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-C2-O3",
+          "option_id": "MJ5-U1-C2-O3",
+          "label": "Yes, they like milk.",
+          "choice_letter": "C",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-D1",
+      "section": "D",
+      "question_number": 1,
+      "question_type": "read_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "prompt": "We _____ want cola.",
+      "expected_answer": {
+        "selected": ["MJ5-U1-D1-O2"],
+        "text": "don't"
+      },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-D1-O1",
+          "option_id": "MJ5-U1-D1-O1",
+          "label": "doesn't",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D1-O2",
+          "option_id": "MJ5-U1-D1-O2",
+          "label": "don't",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D1-O3",
+          "option_id": "MJ5-U1-D1-O3",
+          "label": "aren't",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-D2",
+      "section": "D",
+      "question_number": 2,
+      "question_type": "read_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "prompt": "What _____ your cats like?",
+      "expected_answer": {
+        "selected": ["MJ5-U1-D2-O3"],
+        "text": "do"
+      },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-D2-O1",
+          "option_id": "MJ5-U1-D2-O1",
+          "label": "is",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D2-O2",
+          "option_id": "MJ5-U1-D2-O2",
+          "label": "are",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D2-O3",
+          "option_id": "MJ5-U1-D2-O3",
+          "label": "do",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-D3",
+      "section": "D",
+      "question_number": 3,
+      "question_type": "read_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "prompt": "Do you want green tea?",
+      "response_prompt": "Yes, we _____ green tea.",
+      "expected_answer": {
+        "selected": ["MJ5-U1-D3-O3"],
+        "text": "want"
+      },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-D3-O1",
+          "option_id": "MJ5-U1-D3-O1",
+          "label": "have",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D3-O2",
+          "option_id": "MJ5-U1-D3-O2",
+          "label": "has",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D3-O3",
+          "option_id": "MJ5-U1-D3-O3",
+          "label": "want",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-D4",
+      "section": "D",
+      "question_number": 4,
+      "question_type": "read_and_check",
+      "response_mode": "check_selection",
+      "grading_strategy": "exact_answer",
+      "prompt": "Do _____ want some lollipops?",
+      "response_prompt": "Yes, they do.",
+      "expected_answer": {
+        "selected": ["MJ5-U1-D4-O2"],
+        "text": "they"
+      },
+      "page_number": 5,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-D4-O1",
+          "option_id": "MJ5-U1-D4-O1",
+          "label": "she",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D4-O2",
+          "option_id": "MJ5-U1-D4-O2",
+          "label": "they",
+          "expected_selected": true,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-D4-O3",
+          "option_id": "MJ5-U1-D4-O3",
+          "label": "he",
+          "expected_selected": false,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-E1",
+      "section": "E",
+      "question_number": 1,
+      "question_type": "fill_in",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["have"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-E1-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-E2",
+      "section": "E",
+      "question_number": 2,
+      "question_type": "fill_in",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["What", "you"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-E2-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-E2-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-E3",
+      "section": "E",
+      "question_number": 3,
+      "question_type": "fill_in",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["want", "No"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-E3-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-E3-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-E4",
+      "section": "E",
+      "question_number": 4,
+      "question_type": "fill_in",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["Do", "don't"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-E4-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-E4-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-F1",
+      "section": "F",
+      "question_number": 1,
+      "question_type": "look_and_write",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["green", "tea"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-F1-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F1-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-F2",
+      "section": "F",
+      "question_number": 2,
+      "question_type": "look_and_write",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["Yes", "we", "like", "milk"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-F2-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F2-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F2-B3",
+          "blank_number": 3,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F2-B4",
+          "blank_number": 4,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "question_id": "MJ5-U1-F3",
+      "section": "F",
+      "question_number": 3,
+      "question_type": "look_and_write",
+      "response_mode": "handwriting",
+      "grading_strategy": "multi_blank",
+      "expected_answer": ["they", "do", "not", "They", "mango", "juice"],
+      "page_number": 6,
+      "answer_regions": [
+        {
+          "region_id": "MJ5-U1-F3-B1",
+          "blank_number": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F3-B2",
+          "blank_number": 2,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F3-B3",
+          "blank_number": 3,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F3-B4",
+          "blank_number": 4,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F3-B5",
+          "blank_number": 5,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        },
+        {
+          "region_id": "MJ5-U1-F3-B6",
+          "blank_number": 6,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}
