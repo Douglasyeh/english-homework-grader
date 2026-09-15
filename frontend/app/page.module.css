@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 .main h1 {
@@ -12,8 +13,46 @@
   font-weight: 600;
 }
 
-.main button {
-  padding: 0.75rem 1.25rem;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 280px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form select,
+.form input,
+.form button {
+  padding: 0.5rem;
   font-size: 1rem;
+}
+
+.form button {
   cursor: pointer;
+}
+
+.form button:disabled {
+  cursor: wait;
+}
+
+.status,
+.error,
+.result {
+  max-width: 32rem;
+  text-align: center;
+}
+
+.error {
+  color: #b00020;
+}
+
+.result h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
