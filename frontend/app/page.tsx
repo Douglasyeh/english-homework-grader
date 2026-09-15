@@ -7,11 +7,18 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000"
 
 type UploadState = "idle" | "uploading" | "success" | "error";
 
+type PagePreview = {
+  page_index: number;
+  page_number: number;
+  image_url: string;
+};
+
 type UploadResult = {
   textbook_id: string;
   unit_id: string;
   filename: string;
   page_count: number;
+  pages: PagePreview[];
 };
 
 export default function Home() {
@@ -55,6 +62,7 @@ export default function Home() {
         unit_id: body.unit_id,
         filename: body.filename,
         page_count: body.page_count,
+        pages: Array.isArray(body.pages) ? body.pages : [],
       });
       setState("success");
     } catch {
@@ -117,6 +125,24 @@ export default function Home() {
           <p>Unit: {result.unit_id}</p>
           <p>File: {result.filename}</p>
           <p>PDF page count: {result.page_count}</p>
+          <div className={styles.previews}>
+            {result.pages.map((page) => {
+              const src = page.image_url.startsWith("http")
+                ? page.image_url
+                : `${API_BASE}${page.image_url}`;
+              return (
+                <figure key={page.page_index} className={styles.preview}>
+                  <figcaption>Page {page.page_number}</figcaption>
+                  <a href={src} target="_blank" rel="noreferrer">
+                    <img
+                      src={src}
+                      alt={`Page ${page.page_number}`}
+                    />
+                  </a>
+                </figure>
+              );
+            })}
+          </div>
         </section>
       ) : null}
     </main>

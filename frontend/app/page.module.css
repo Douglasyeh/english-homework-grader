@@ -44,7 +44,6 @@
 .status,
 .error,
 .result {
-  max-width: 32rem;
   text-align: center;
 }
 
@@ -52,7 +51,36 @@
   color: #b00020;
 }
 
+.result {
+  width: 100%;
+  max-width: 960px;
+}
+
 .result h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
+}
+
+.previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.preview {
+  margin: 0;
+}
+
+.preview figcaption {
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.preview img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  background: #fff;
 }

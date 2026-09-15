@@ -59,6 +59,12 @@ FastAPI REST API. Orchestrates uploads, pipeline jobs, and review actions. Does 
 
 Turns the uploaded PDF into ordered page images, groups pages by student (name-page boundaries), and (later) clips question `answer_region`s.
 
+Page rendering produces **images only**. It does not run OCR, selection detection, or grading.
+
+For Milestone 2, generated PNGs are stored in a local development directory (`EHG_STORAGE_DIR` if set, otherwise the OS temp folder under `english-homework-grader/`). Original student PDFs are not kept. This store is not a database and can be replaced later.
+
+`page_index` is 0-based PDF order. `page_number` in the upload response is currently **1-based PDF display order**, not the Magic Joy workbook page printed on the sheet (4 / 5 / 6). Workbook page numbers stay on the assignment template.
+
 ### Response Detection
 
 Takes a question's page regions and `response_mode`, then produces a **Student Response** object for the grading engine.

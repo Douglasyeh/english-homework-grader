@@ -3,3 +3,5 @@ uvicorn
 pypdf
 python-multipart
 httpx
+pypdfium2
+pillow

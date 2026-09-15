@@ -38,3 +38,7 @@ Thumbs.db
 coverage/
 htmlcov/
 .coverage
+
+# Generated student PDFs and page images (local development)
+backend/var/
+.data/
