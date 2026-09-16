@@ -11,6 +11,15 @@ type PagePreview = {
   page_index: number;
   page_number: number;
   image_url: string;
+  assignment_page_id?: string;
+  assignment_page_sequence?: number;
+  workbook_page?: number;
+};
+
+type StudentGroup = {
+  student_group_id: string;
+  group_number: number;
+  pages: PagePreview[];
 };
 
 type UploadResult = {
@@ -19,7 +28,36 @@ type UploadResult = {
   filename: string;
   page_count: number;
   pages: PagePreview[];
+  grouping_status: string;
+  expected_pages_per_student: number;
+  group_count: number;
+  complete_group_count: number;
+  remaining_page_count: number;
+  student_groups: StudentGroup[];
+  remaining_pages: PagePreview[];
 };
+
+function imageSrc(url: string): string {
+  return url.startsWith("http") ? url : `${API_BASE}${url}`;
+}
+
+function PageThumb({
+  page,
+  caption,
+}: {
+  page: PagePreview;
+  caption: string;
+}) {
+  const src = imageSrc(page.image_url);
+  return (
+    <figure className={styles.preview}>
+      <figcaption>{caption}</figcaption>
+      <a href={src} target="_blank" rel="noreferrer">
+        <img src={src} alt={caption} />
+      </a>
+    </figure>
+  );
+}
 
 export default function Home() {
   const [selectedName, setSelectedName] = useState("");
@@ -63,6 +101,17 @@ export default function Home() {
         filename: body.filename,
         page_count: body.page_count,
         pages: Array.isArray(body.pages) ? body.pages : [],
+        grouping_status: body.grouping_status,
+        expected_pages_per_student: body.expected_pages_per_student,
+        group_count: body.group_count,
+        complete_group_count: body.complete_group_count,
+        remaining_page_count: body.remaining_page_count,
+        student_groups: Array.isArray(body.student_groups)
+          ? body.student_groups
+          : [],
+        remaining_pages: Array.isArray(body.remaining_pages)
+          ? body.remaining_pages
+          : [],
       });
       setState("success");
     } catch {
@@ -125,24 +174,44 @@ export default function Home() {
           <p>Unit: {result.unit_id}</p>
           <p>File: {result.filename}</p>
           <p>PDF page count: {result.page_count}</p>
-          <div className={styles.previews}>
-            {result.pages.map((page) => {
-              const src = page.image_url.startsWith("http")
-                ? page.image_url
-                : `${API_BASE}${page.image_url}`;
-              return (
-                <figure key={page.page_index} className={styles.preview}>
-                  <figcaption>Page {page.page_number}</figcaption>
-                  <a href={src} target="_blank" rel="noreferrer">
-                    <img
-                      src={src}
-                      alt={`Page ${page.page_number}`}
+          {result.grouping_status === "needs_manual_review" ? (
+            <div className={styles.review} role="status">
+              <p>Page grouping needs review.</p>
+              <p>Uploaded page count: {result.page_count}</p>
+              <p>
+                Expected pages per student:{" "}
+                {result.expected_pages_per_student}
+              </p>
+              <p>Complete group count: {result.complete_group_count}</p>
+              <p>Remaining page count: {result.remaining_page_count}</p>
+            </div>
+          ) : null}
+          {result.grouping_status === "grouped"
+            ? result.student_groups.map((group) => (
+                <div key={group.student_group_id} className={styles.group}>
+                  <h3>Student Group {group.group_number}</h3>
+                  <div className={styles.previews}>
+                    {group.pages.map((page) => (
+                      <PageThumb
+                        key={page.page_index}
+                        page={page}
+                        caption={`Assignment Page ${page.assignment_page_sequence} (Workbook ${page.workbook_page})`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))
+            : (
+                <div className={styles.previews}>
+                  {result.pages.map((page) => (
+                    <PageThumb
+                      key={page.page_index}
+                      page={page}
+                      caption={`Page ${page.page_number}`}
                     />
-                  </a>
-                </figure>
-              );
-            })}
-          </div>
+                  ))}
+                </div>
+              )}
         </section>
       ) : null}
     </main>

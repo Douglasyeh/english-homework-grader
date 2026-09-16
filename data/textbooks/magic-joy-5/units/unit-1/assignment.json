@@ -26,6 +26,26 @@
     { "section_id": "E", "title": "Fill in." },
     { "section_id": "F", "title": "Look and write." }
   ],
+  "assignment_pages": [
+    {
+      "assignment_page_id": "MJ5-U1-P1",
+      "sequence": 1,
+      "workbook_page": 4,
+      "sections": ["A", "B"]
+    },
+    {
+      "assignment_page_id": "MJ5-U1-P2",
+      "sequence": 2,
+      "workbook_page": 5,
+      "sections": ["C", "D"]
+    },
+    {
+      "assignment_page_id": "MJ5-U1-P3",
+      "sequence": 3,
+      "workbook_page": 6,
+      "sections": ["E", "F"]
+    }
+  ],
   "questions": [
     {
       "question_id": "MJ5-U1-A1",

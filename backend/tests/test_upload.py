@@ -98,6 +98,49 @@ class UploadSubmissionTests(unittest.TestCase):
         response = client.post("/api/submissions/upload", data=data, files=files)
         self.assertEqual(response.status_code, 422)
 
+    def test_upload_groups_three_pages_for_unit_1(self) -> None:
+        files = {"file": ("homework.pdf", _pdf_bytes(3), "application/pdf")}
+        data = {"textbook_id": "magic-joy-5", "unit_id": "unit-1"}
+        response = client.post("/api/submissions/upload", data=data, files=files)
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(body["grouping_status"], "grouped")
+        self.assertEqual(body["expected_pages_per_student"], 3)
+        self.assertEqual(body["group_count"], 1)
+        self.assertEqual(len(body["student_groups"]), 1)
+        mapped = body["student_groups"][0]["pages"]
+        self.assertEqual(
+            [
+                (
+                    page["page_index"],
+                    page["assignment_page_id"],
+                    page["workbook_page"],
+                )
+                for page in mapped
+            ],
+            [
+                (0, "MJ5-U1-P1", 4),
+                (1, "MJ5-U1-P2", 5),
+                (2, "MJ5-U1-P3", 6),
+            ],
+        )
+
+    def test_upload_uneven_page_count_needs_manual_review(self) -> None:
+        files = {"file": ("homework.pdf", _pdf_bytes(4), "application/pdf")}
+        data = {"textbook_id": "magic-joy-5", "unit_id": "unit-1"}
+        response = client.post("/api/submissions/upload", data=data, files=files)
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(body["grouping_status"], "needs_manual_review")
+        self.assertEqual(body["page_count"], 4)
+        self.assertEqual(body["expected_pages_per_student"], 3)
+        self.assertEqual(body["complete_group_count"], 1)
+        self.assertEqual(body["remaining_page_count"], 1)
+        self.assertEqual(body["student_groups"], [])
+        self.assertEqual(len(body["pages"]), 4)
+        self.assertEqual(len(body["provisional_groups"]), 1)
+        self.assertEqual(len(body["remaining_pages"]), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

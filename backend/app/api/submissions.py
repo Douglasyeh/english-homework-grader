@@ -6,6 +6,8 @@ from fastapi.responses import FileResponse
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
+from app.services.assignment_data import assignment_pages_for
+from app.services.page_grouping import group_uploaded_pages
 from app.services.page_images import render_pdf_pages
 from app.services.storage import (
     SUBMISSION_ID_PATTERN,
@@ -78,6 +80,13 @@ async def upload_submission(
         for index in range(page_count)
     ]
 
+    try:
+        assignment_pages = assignment_pages_for(textbook, unit)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=400, detail="Unknown assignment") from exc
+
+    grouping = group_uploaded_pages(pages, assignment_pages)
+
     return {
         "status": "uploaded",
         "textbook_id": textbook,
@@ -86,6 +95,7 @@ async def upload_submission(
         "page_count": page_count,
         "submission_id": submission_id,
         "pages": pages,
+        **grouping,
     }
 
 

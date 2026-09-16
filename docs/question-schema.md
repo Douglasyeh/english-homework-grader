@@ -32,6 +32,24 @@ A specific homework set the teacher selects (often a unit worksheet or exercise)
 - `unit_id` (and thereby `course_id`)
 - name
 - grading/assignment rules that apply to questions in this set, if any
+- `assignment_pages` — ordered page structure for this assignment (see below)
+
+### Assignment page
+
+One physical sheet in the selected unit's homework packet. Different units may have different counts. The expected number of pages per student is always:
+
+`expected_pages_per_student = len(assignment_pages)`
+
+Do **not** store a separate `pages_per_student` or `assignment_page_count` field. `assignment_pages` is the single source of truth. Student grouping is not implemented yet; this count is only defined for later use.
+
+Each assignment page has:
+
+- `assignment_page_id` (namespaced, unique within the assignment)
+- `sequence` — 1-based position in this unit's homework (1, 2, 3, …)
+- `workbook_page` — printed page number in the textbook/workbook (for Magic Joy 5 Unit 1: 4, 5, 6)
+- `sections` — section ids that appear on this sheet (ids only; questions stay on the `questions` array)
+
+These are **not** the same as an uploaded PDF `page_index` (0-based position in the teacher's scan).
 
 ### Question
 
@@ -46,8 +64,12 @@ Minimum fields:
 - `response_mode`
 - `grading_strategy`
 - `expected_answer`
-- `page_number` (page of the assignment template / student packet where this question appears)
+- `page_number`
 - `answer_regions` (one or more page locations: handwriting blanks **or** selectable printed options)
+
+For the Magic Joy 5 Unit 1 Golden Dataset, question `page_number` is the **printed workbook page**. It is not assignment `sequence` and not PDF `page_index`. Do not change those stored values.
+
+Each populated question maps to exactly one assignment page by matching `page_number` to that page's `workbook_page`. The question's `section` must be listed on that assignment page. Question and answer content is not duplicated inside `assignment_pages`.
 
 These three fields are **not** the same thing:
 
@@ -198,15 +220,18 @@ Final grading may use teacher-corrected text when present, otherwise raw (or nor
 Course/Textbook
   └── Unit
         └── Assignment
+              ├── Assignment Pages
               ├── Question ── Answer Key
               └── Submission
-                    ├── Submission Page (ordered; grouped by Student)
+                    ├── Submission Page (PDF page_index; later linked to assignment_page_id)
                     └── Student Answer
                           ├── Recognition Result
                           └── Grading Result
 ```
 
 Student is linked through Submission Pages (name on first page) and Student Answers.
+
+Future student grouping will use `len(assignment_pages)` as expected pages per student. Milestone 3B applies that count as a repeating positional map from PDF `page_index` onto `assignment_page_id`. Groups are labeled `group-001`, `group-002`, … and are not named students. Uneven page counts set `grouping_status` to `needs_manual_review` and keep every uploaded page.
 
 ## JSON assignment template format
 
@@ -217,18 +242,25 @@ Current files:
 - `data/textbooks/magic-joy-5/textbook.json` — textbook id, title, and unit list
 - `data/textbooks/magic-joy-5/units/unit-1/assignment.json` — Unit 1 assignment import format
 
-`textbook.json` identifies the course the teacher will pick from a menu. `assignment.json` is the import format for one unit/assignment: ids, sections, and a `questions` array.
-
-Magic Joy 5 Unit 1 questions and answer keys are **not** stored yet. The Unit 1 file is a valid empty template (`questions: []`) until real source material is supplied. Do not copy the documentation examples below into production data as if they were textbook content.
+`textbook.json` identifies the course the teacher will pick from a menu. `assignment.json` is the import format for one unit/assignment: ids, sections, `assignment_pages`, and a `questions` array.
 
 ### Assignment object
 
 - `assignment_id`, `textbook_id`, `unit_id`
 - `title`
 - `sections` — ordered list (MVP: A–F as objects with `section_id` / `title`)
+- `assignment_pages` — page structure; expected page count is `len(assignment_pages)`
 - `questions` — list of question objects (may be empty)
 - `supported_question_types` — types the file may contain: `listen_and_circle`, `listen_and_check`, `listen_and_choose`, `read_and_check`, `fill_in`, `look_and_write`
 - `supported_response_modes` — `circle_selection`, `check_selection`, `handwriting`
+
+Magic Joy 5 Unit 1 `assignment_pages`:
+
+| assignment_page_id | sequence | workbook_page | sections |
+| --- | --- | --- | --- |
+| MJ5-U1-P1 | 1 | 4 | A, B |
+| MJ5-U1-P2 | 2 | 5 | C, D |
+| MJ5-U1-P3 | 3 | 6 | E, F |
 
 ### Question object
 

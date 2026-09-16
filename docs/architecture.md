@@ -39,7 +39,7 @@ Final results
 Notes on the pipeline:
 
 - Textbook and unit/assignment are teacher-selected. There is no automatic textbook detection.
-- One PDF may contain multiple students. Student boundaries are based primarily on the handwritten name on the first page of each student's homework.
+- One PDF may contain multiple students. Milestone 3B groups pages **by position** using `len(assignment_pages)`. Student-name detection is not used yet.
 - Response Detection runs before grading. It is routed by `response_mode` (circle, check, or handwriting), not by `question_type`.
 - Low-confidence detection is flagged for manual review (需人工辨識) rather than guessed.
 - Normalization is applied to a copy/derived field for grading strategies that need it; it does not replace raw handwriting text.
@@ -57,13 +57,45 @@ FastAPI REST API. Orchestrates uploads, pipeline jobs, and review actions. Does 
 
 ### Document Processing
 
-Turns the uploaded PDF into ordered page images, groups pages by student (name-page boundaries), and (later) clips question `answer_region`s.
+Turns the uploaded PDF into ordered page images, then (Milestone 3B) maps those images onto `assignment_pages` by position. Student-name boundaries and question-region clips are later steps.
 
 Page rendering produces **images only**. It does not run OCR, selection detection, or grading.
 
+Keep these page identifiers separate:
+
+| Concept | Meaning | Example (Magic Joy 5 Unit 1) |
+| --- | --- | --- |
+| Assignment page `sequence` | 1-based position in the selected unit's homework | 1, 2, 3 |
+| `workbook_page` | Printed number in the textbook | 4, 5, 6 |
+| PDF `page_index` | 0-based page in the teacher upload | 0, 1, 2, … |
+
+`page_number` on Golden Dataset **questions** is the printed workbook page, not PDF order.
+
+The number of homework sheets per student is derived as `len(assignment_pages)`. Do not hard-code 3 (or any other count) in application logic.
+
+**Milestone 3B** groups uploaded PDF pages by position only:
+
+```
+Assignment
+  → assignment_pages
+  → expected_pages_per_student = len(assignment_pages)
+
+Uploaded PDF
+  → ordered rendered pages
+  → positional grouping (repeating assignment sequences)
+  → assignment_page mapping
+  → provisional student groups (group-001, …)
+```
+
+This is an MVP assumption. Groups are **not** identified students. Future work may verify or replace positional grouping with student-name recognition, page classification, or manual correction. Those are not implemented here.
+
+If `uploaded_page_count % expected_pages_per_student != 0`, grouping status is `needs_manual_review`. Complete-size chunks may appear as `provisional_groups` for later review, leftover pages as `remaining_pages`, and `student_groups` stays empty so leftovers are never treated as a finished student packet. Pages are never shifted, guessed, or dropped.
+
+Zero `assignment_pages` does not divide; the result is `needs_manual_review` with every uploaded page in `remaining_pages`.
+
 For Milestone 2, generated PNGs are stored in a local development directory (`EHG_STORAGE_DIR` if set, otherwise the OS temp folder under `english-homework-grader/`). Original student PDFs are not kept. This store is not a database and can be replaced later.
 
-`page_index` is 0-based PDF order. `page_number` in the upload response is currently **1-based PDF display order**, not the Magic Joy workbook page printed on the sheet (4 / 5 / 6). Workbook page numbers stay on the assignment template.
+In upload JSON, `page_index` is 0-based PDF order and response `page_number` is currently **1-based PDF display order**. That upload field is still not the workbook page. Later, each uploaded PDF page will be associated with an `assignment_page_id` before region extraction or grading.
 
 ### Response Detection
 
