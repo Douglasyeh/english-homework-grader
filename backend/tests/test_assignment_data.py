@@ -36,6 +36,117 @@ def require_nonempty_string(value: Any, field: str) -> None:
         raise AssertionError(f"{field} must be a non-empty string")
 
 
+def section_ids_from_assignment(sections: list[Any]) -> set[str]:
+    ids: set[str] = set()
+    for item in sections:
+        if isinstance(item, str) and item.strip():
+            ids.add(item.strip())
+        elif isinstance(item, dict):
+            section_id = item.get("section_id")
+            if isinstance(section_id, str) and section_id.strip():
+                ids.add(section_id.strip())
+    return ids
+
+
+def expected_pages_per_student(data: dict[str, Any]) -> int:
+    pages = data.get("assignment_pages")
+    if not isinstance(pages, list):
+        raise AssertionError("assignment_pages must be a list")
+    return len(pages)
+
+
+def validate_assignment_pages(data: dict[str, Any], questions: list[Any]) -> None:
+    if "pages_per_student" in data or "assignment_page_count" in data:
+        raise AssertionError(
+            "Do not store pages_per_student or assignment_page_count; "
+            "derive the count from len(assignment_pages)"
+        )
+
+    pages = data.get("assignment_pages")
+    if questions and (not isinstance(pages, list) or len(pages) == 0):
+        raise AssertionError(
+            "assignment_pages must be a non-empty list for a populated assignment"
+        )
+    if pages is None:
+        return
+    if not isinstance(pages, list):
+        raise AssertionError("assignment_pages must be a list")
+    if len(pages) == 0:
+        raise AssertionError("assignment_pages must not be empty when present")
+
+    known_sections = section_ids_from_assignment(data.get("sections") or [])
+    page_ids: set[str] = set()
+    sequences: list[int] = []
+    workbook_pages: set[int] = set()
+    by_workbook: dict[int, dict[str, Any]] = {}
+
+    for index, page in enumerate(pages):
+        if not isinstance(page, dict):
+            raise AssertionError(f"assignment_pages[{index}] must be an object")
+        page_id = page.get("assignment_page_id")
+        require_nonempty_string(page_id, f"assignment_pages[{index}].assignment_page_id")
+        if page_id in page_ids:
+            raise AssertionError(f"duplicate assignment_page_id: {page_id}")
+        page_ids.add(page_id)
+
+        sequence = page.get("sequence")
+        if not isinstance(sequence, int) or isinstance(sequence, bool):
+            raise AssertionError(f"assignment_pages[{index}].sequence must be an integer")
+        sequences.append(sequence)
+
+        workbook_page = page.get("workbook_page")
+        if not isinstance(workbook_page, int) or isinstance(workbook_page, bool):
+            raise AssertionError(
+                f"assignment_pages[{index}].workbook_page must be an integer"
+            )
+        if workbook_page in workbook_pages:
+            raise AssertionError(f"duplicate workbook_page: {workbook_page}")
+        workbook_pages.add(workbook_page)
+        by_workbook[workbook_page] = page
+
+        page_sections = page.get("sections")
+        if not isinstance(page_sections, list) or len(page_sections) == 0:
+            raise AssertionError(
+                f"assignment_pages[{index}].sections must be a non-empty list"
+            )
+        for section in page_sections:
+            if section not in known_sections:
+                raise AssertionError(
+                    f"assignment_pages[{index}] references unknown section {section!r}"
+                )
+
+    if len(sequences) != len(set(sequences)):
+        raise AssertionError("assignment_pages sequence values must be unique")
+    expected_sequences = list(range(1, len(pages) + 1))
+    if sequences != expected_sequences:
+        raise AssertionError(
+            "assignment_pages sequence values must be ordered and contiguous "
+            f"starting at 1; got {sequences}"
+        )
+
+    for index, question in enumerate(questions):
+        if not isinstance(question, dict):
+            continue
+        page_number = question.get("page_number")
+        if not isinstance(page_number, int) or isinstance(page_number, bool):
+            raise AssertionError(
+                f"questions[{index}].page_number must be a workbook page integer"
+            )
+        assignment_page = by_workbook.get(page_number)
+        if assignment_page is None:
+            raise AssertionError(
+                f"questions[{index}] page_number {page_number} does not map to "
+                "exactly one assignment_pages workbook_page"
+            )
+        question_section = question.get("section")
+        page_sections = assignment_page.get("sections") or []
+        if question_section not in page_sections:
+            raise AssertionError(
+                f"questions[{index}] section {question_section!r} is not on the "
+                f"assignment page for workbook_page {page_number}"
+            )
+
+
 def validate_assignment_structure(data: dict[str, Any]) -> None:
     require_nonempty_string(data.get("assignment_id"), "assignment_id")
     require_nonempty_string(data.get("textbook_id"), "textbook_id")
@@ -111,6 +222,8 @@ def validate_assignment_structure(data: dict[str, Any]) -> None:
                 )
             region_ids.add(region_id)
 
+    validate_assignment_pages(data, questions)
+
 
 class AssignmentDataTests(unittest.TestCase):
     def test_magic_joy_5_unit_1_template_structure(self) -> None:
@@ -132,6 +245,14 @@ class AssignmentDataTests(unittest.TestCase):
             "textbook_id": "example-textbook",
             "unit_id": "unit-1",
             "sections": [{"section_id": "E", "title": "E"}],
+            "assignment_pages": [
+                {
+                    "assignment_page_id": "PLACEHOLDER_P1",
+                    "sequence": 1,
+                    "workbook_page": 1,
+                    "sections": ["E"],
+                }
+            ],
             "questions": [
                 {
                     "question_id": "PLACEHOLDER_NOT_REAL_E4",
@@ -141,7 +262,7 @@ class AssignmentDataTests(unittest.TestCase):
                     "response_mode": "handwriting",
                     "grading_strategy": "multi_blank",
                     "expected_answer": ["Do", "don't"],
-                    "page_number": None,
+                    "page_number": 1,
                     "answer_regions": [
                         {
                             "region_id": "PLACEHOLDER_NOT_REAL_E4_b1",
@@ -172,6 +293,14 @@ class AssignmentDataTests(unittest.TestCase):
             "textbook_id": "example-textbook",
             "unit_id": "unit-1",
             "sections": [{"section_id": "A", "title": "A"}],
+            "assignment_pages": [
+                {
+                    "assignment_page_id": "PLACEHOLDER_P1",
+                    "sequence": 1,
+                    "workbook_page": 1,
+                    "sections": ["A"],
+                }
+            ],
             "questions": [
                 {
                     "question_id": "PLACEHOLDER_NOT_REAL_CIRCLE",
@@ -181,7 +310,7 @@ class AssignmentDataTests(unittest.TestCase):
                     "response_mode": "circle_selection",
                     "grading_strategy": "exact_answer",
                     "expected_answer": {"selected": ["option_2"]},
-                    "page_number": None,
+                    "page_number": 1,
                     "answer_regions": [
                         {
                             "region_id": "PLACEHOLDER_NOT_REAL_CIRCLE_opt1",
@@ -400,6 +529,152 @@ class MagicJoy5Unit1GoldenDatasetTests(unittest.TestCase):
                         region[field],
                         f"{region.get('region_id')} {field}",
                     )
+
+    def test_assignment_pages_structure(self) -> None:
+        pages = self.data["assignment_pages"]
+        self.assertEqual(expected_pages_per_student(self.data), len(pages))
+        self.assertEqual(len(pages), 3)
+        self.assertNotIn("pages_per_student", self.data)
+        self.assertNotIn("assignment_page_count", self.data)
+        self.assertEqual(
+            [
+                (
+                    page["assignment_page_id"],
+                    page["sequence"],
+                    page["workbook_page"],
+                    page["sections"],
+                )
+                for page in pages
+            ],
+            [
+                ("MJ5-U1-P1", 1, 4, ["A", "B"]),
+                ("MJ5-U1-P2", 2, 5, ["C", "D"]),
+                ("MJ5-U1-P3", 3, 6, ["E", "F"]),
+            ],
+        )
+
+    def test_questions_map_to_assignment_pages_by_workbook_page(self) -> None:
+        by_workbook = {
+            page["workbook_page"]: page for page in self.data["assignment_pages"]
+        }
+        expected_workbook = {
+            "A": 4,
+            "B": 4,
+            "C": 5,
+            "D": 5,
+            "E": 6,
+            "F": 6,
+        }
+        for question in self.questions:
+            section = question["section"]
+            self.assertEqual(question["page_number"], expected_workbook[section])
+            page = by_workbook[question["page_number"]]
+            self.assertIn(section, page["sections"])
+
+
+class HypotheticalFourPageAssignmentTests(unittest.TestCase):
+    """Fixture only. Not a real textbook or answer key."""
+
+    def test_four_page_unit_count_is_derived_from_assignment_pages(self) -> None:
+        sample = {
+            "assignment_id": "FIXTURE-ONLY-four-page-unit",
+            "textbook_id": "fixture-only-textbook",
+            "unit_id": "fixture-unit",
+            "sections": [
+                {"section_id": "A", "title": "A"},
+                {"section_id": "B", "title": "B"},
+                {"section_id": "C", "title": "C"},
+                {"section_id": "D", "title": "D"},
+                {"section_id": "E", "title": "E"},
+                {"section_id": "F", "title": "F"},
+                {"section_id": "G", "title": "G"},
+                {"section_id": "H", "title": "H"},
+            ],
+            "assignment_pages": [
+                {
+                    "assignment_page_id": "FIX-P1",
+                    "sequence": 1,
+                    "workbook_page": 10,
+                    "sections": ["A", "B"],
+                },
+                {
+                    "assignment_page_id": "FIX-P2",
+                    "sequence": 2,
+                    "workbook_page": 11,
+                    "sections": ["C", "D"],
+                },
+                {
+                    "assignment_page_id": "FIX-P3",
+                    "sequence": 3,
+                    "workbook_page": 12,
+                    "sections": ["E", "F"],
+                },
+                {
+                    "assignment_page_id": "FIX-P4",
+                    "sequence": 4,
+                    "workbook_page": 13,
+                    "sections": ["G", "H"],
+                },
+            ],
+            "questions": [],
+        }
+        validate_assignment_structure(sample)
+        self.assertEqual(expected_pages_per_student(sample), 4)
+        self.assertEqual(expected_pages_per_student(sample), len(sample["assignment_pages"]))
+        self.assertNotEqual(expected_pages_per_student(sample), 3)
+
+    def test_question_on_fourth_page_maps_without_hard_coded_count(self) -> None:
+        sample = {
+            "assignment_id": "FIXTURE-ONLY-four-page-unit",
+            "textbook_id": "fixture-only-textbook",
+            "unit_id": "fixture-unit",
+            "sections": [
+                {"section_id": "A", "title": "A"},
+                {"section_id": "H", "title": "H"},
+            ],
+            "assignment_pages": [
+                {
+                    "assignment_page_id": "FIX-P1",
+                    "sequence": 1,
+                    "workbook_page": 10,
+                    "sections": ["A"],
+                },
+                {
+                    "assignment_page_id": "FIX-P2",
+                    "sequence": 2,
+                    "workbook_page": 11,
+                    "sections": ["A"],
+                },
+                {
+                    "assignment_page_id": "FIX-P3",
+                    "sequence": 3,
+                    "workbook_page": 12,
+                    "sections": ["A"],
+                },
+                {
+                    "assignment_page_id": "FIX-P4",
+                    "sequence": 4,
+                    "workbook_page": 13,
+                    "sections": ["H"],
+                },
+            ],
+            "questions": [
+                {
+                    "question_id": "FIX-H1",
+                    "section": "H",
+                    "question_number": 1,
+                    "question_type": "fill_in",
+                    "response_mode": "handwriting",
+                    "grading_strategy": "multi_blank",
+                    "expected_answer": ["placeholder"],
+                    "page_number": 13,
+                    "answer_regions": [{"region_id": "FIX-H1-B1"}],
+                    "notes": "PLACEHOLDER — not textbook content",
+                }
+            ],
+        }
+        validate_assignment_structure(sample)
+        self.assertEqual(expected_pages_per_student(sample), 4)
 
 
 if __name__ == "__main__":
