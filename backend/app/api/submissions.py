@@ -7,6 +7,7 @@ from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
 from app.services.assignment_data import assignment_pages_for
+from app.services.page_alignment import attach_alignment_to_groups
 from app.services.page_grouping import group_uploaded_pages
 from app.services.page_images import render_pdf_pages
 from app.services.storage import (
@@ -86,6 +87,13 @@ async def upload_submission(
         raise HTTPException(status_code=400, detail="Unknown assignment") from exc
 
     grouping = group_uploaded_pages(pages, assignment_pages)
+    grouping = attach_alignment_to_groups(
+        grouping,
+        textbook_id=textbook,
+        unit_id=unit,
+        submission_id=submission_id,
+        assignment_pages=assignment_pages,
+    )
 
     return {
         "status": "uploaded",

@@ -22,6 +22,73 @@ ALLOWED_RESPONSE_MODES = frozenset(
     {"circle_selection", "check_selection", "handwriting"}
 )
 
+GOLDEN_EXPECTED_ANSWERS = {
+    "MJ5-U1-A1": {"selected": ["MJ5-U1-A1-O2"]},
+    "MJ5-U1-A2": {"selected": ["MJ5-U1-A2-O2"]},
+    "MJ5-U1-A3": {"selected": ["MJ5-U1-A3-O1"]},
+    "MJ5-U1-A4": {"selected": ["MJ5-U1-A4-O2"]},
+    "MJ5-U1-A5": {"selected": ["MJ5-U1-A5-O1"]},
+    "MJ5-U1-A6": {"selected": ["MJ5-U1-A6-O1"]},
+    "MJ5-U1-B1": {"selected": ["MJ5-U1-B1-O2"]},
+    "MJ5-U1-B2": {"selected": ["MJ5-U1-B2-O1"]},
+    "MJ5-U1-B3": {"selected": ["MJ5-U1-B3-O1"]},
+    "MJ5-U1-B4": {"selected": ["MJ5-U1-B4-O2"]},
+    "MJ5-U1-C1": {"option": "A", "selected": ["MJ5-U1-C1-O1"]},
+    "MJ5-U1-C2": {"option": "B", "selected": ["MJ5-U1-C2-O2"]},
+    "MJ5-U1-D1": {"selected": ["MJ5-U1-D1-O2"], "text": "don't"},
+    "MJ5-U1-D2": {"selected": ["MJ5-U1-D2-O3"], "text": "do"},
+    "MJ5-U1-D3": {"selected": ["MJ5-U1-D3-O3"], "text": "want"},
+    "MJ5-U1-D4": {"selected": ["MJ5-U1-D4-O2"], "text": "they"},
+    "MJ5-U1-E1": ["have"],
+    "MJ5-U1-E2": ["What", "you"],
+    "MJ5-U1-E3": ["want", "No"],
+    "MJ5-U1-E4": ["Do", "don't"],
+    "MJ5-U1-F1": ["green", "tea"],
+    "MJ5-U1-F2": ["Yes", "we", "like", "milk"],
+    "MJ5-U1-F3": ["they", "do", "not", "They", "mango", "juice"],
+}
+
+GOLDEN_EXPECTED_SELECTED = {
+    "MJ5-U1-A1-O1": False,
+    "MJ5-U1-A1-O2": True,
+    "MJ5-U1-A2-O1": False,
+    "MJ5-U1-A2-O2": True,
+    "MJ5-U1-A3-O1": True,
+    "MJ5-U1-A3-O2": False,
+    "MJ5-U1-A4-O1": False,
+    "MJ5-U1-A4-O2": True,
+    "MJ5-U1-A5-O1": True,
+    "MJ5-U1-A5-O2": False,
+    "MJ5-U1-A6-O1": True,
+    "MJ5-U1-A6-O2": False,
+    "MJ5-U1-B1-O1": False,
+    "MJ5-U1-B1-O2": True,
+    "MJ5-U1-B2-O1": True,
+    "MJ5-U1-B2-O2": False,
+    "MJ5-U1-B3-O1": True,
+    "MJ5-U1-B3-O2": False,
+    "MJ5-U1-B4-O1": False,
+    "MJ5-U1-B4-O2": True,
+    "MJ5-U1-C1-O1": True,
+    "MJ5-U1-C1-O2": False,
+    "MJ5-U1-C1-O3": False,
+    "MJ5-U1-C2-O1": False,
+    "MJ5-U1-C2-O2": True,
+    "MJ5-U1-C2-O3": False,
+    "MJ5-U1-D1-O1": False,
+    "MJ5-U1-D1-O2": True,
+    "MJ5-U1-D1-O3": False,
+    "MJ5-U1-D2-O1": False,
+    "MJ5-U1-D2-O2": False,
+    "MJ5-U1-D2-O3": True,
+    "MJ5-U1-D3-O1": False,
+    "MJ5-U1-D3-O2": False,
+    "MJ5-U1-D3-O3": True,
+    "MJ5-U1-D4-O1": False,
+    "MJ5-U1-D4-O2": True,
+    "MJ5-U1-D4-O3": False,
+}
+
 
 def load_assignment(path: Path) -> dict[str, Any]:
     with path.open(encoding="utf-8") as handle:
@@ -503,10 +570,13 @@ class MagicJoy5Unit1GoldenDatasetTests(unittest.TestCase):
         for question in self.questions:
             if question["response_mode"] == "handwriting":
                 continue
-            regions = question["answer_regions"]
-            self.assertGreaterEqual(len(regions), 2, question["question_id"])
-            for region in regions:
-                self.assertIn("option_id", region, question["question_id"])
+            options = [
+                region
+                for region in question["answer_regions"]
+                if "option_id" in region
+            ]
+            self.assertGreaterEqual(len(options), 2, question["question_id"])
+            for region in options:
                 self.assertIn("expected_selected", region, question["question_id"])
 
     def test_handwriting_blanks_match_region_count(self) -> None:
@@ -521,14 +591,84 @@ class MagicJoy5Unit1GoldenDatasetTests(unittest.TestCase):
                 question["question_id"],
             )
 
-    def test_all_coordinates_are_null(self) -> None:
+    def test_all_physical_coordinates_are_normalized_and_in_bounds(self) -> None:
+        from app.services.regions import region_is_uncalibrated, validate_normalized_region
+
         for question in self.questions:
             for region in question["answer_regions"]:
-                for field in ("x", "y", "width", "height"):
-                    self.assertIsNone(
-                        region[field],
-                        f"{region.get('region_id')} {field}",
+                if region_is_uncalibrated(region):
+                    self.assertTrue(
+                        question["question_id"].startswith("MJ5-U1-C"),
+                        region["region_id"],
                     )
+                    continue
+                validate_normalized_region(region)
+
+    def test_region_ids_are_unique_across_assignment(self) -> None:
+        ids = [
+            region["region_id"]
+            for question in self.questions
+            for region in question["answer_regions"]
+        ]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(len(ids), 59)
+
+    def test_option_and_blank_relationships_remain_valid(self) -> None:
+        for question in self.questions:
+            if question["response_mode"] == "handwriting":
+                numbers = [region["blank_number"] for region in question["answer_regions"]]
+                self.assertEqual(numbers, list(range(1, len(numbers) + 1)))
+                for region in question["answer_regions"]:
+                    self.assertNotIn("option_id", region)
+                    self.assertTrue(region["region_id"].endswith(f"-B{region['blank_number']}"))
+            else:
+                for region in question["answer_regions"]:
+                    if "option_id" not in region:
+                        self.assertTrue(
+                            str(region.get("region_id", "")).endswith("-INPUT"),
+                            region.get("region_id"),
+                        )
+                        continue
+                    self.assertEqual(region["region_id"], region["option_id"])
+                    self.assertIn("expected_selected", region)
+
+    def test_c_has_one_physical_input_and_keeps_option_records(self) -> None:
+        from app.services.regions import region_is_uncalibrated
+
+        for question_id in ("MJ5-U1-C1", "MJ5-U1-C2"):
+            question = self.by_id[question_id]
+            physical = [
+                region
+                for region in question["answer_regions"]
+                if not region_is_uncalibrated(region)
+            ]
+            options = [
+                region
+                for region in question["answer_regions"]
+                if region.get("option_id")
+            ]
+            self.assertEqual(len(physical), 1, question_id)
+            self.assertEqual(physical[0]["region_id"], f"{question_id}-INPUT")
+            self.assertEqual(len(options), 3, question_id)
+            self.assertEqual(
+                [region["choice_letter"] for region in options],
+                ["A", "B", "C"],
+            )
+
+    def test_golden_dataset_expected_answers_unchanged(self) -> None:
+        self.assertEqual(set(self.by_id), set(GOLDEN_EXPECTED_ANSWERS))
+        self.assertEqual(
+            {qid: self.by_id[qid]["expected_answer"] for qid in GOLDEN_EXPECTED_ANSWERS},
+            GOLDEN_EXPECTED_ANSWERS,
+        )
+        selected = {
+            region["region_id"]: region["expected_selected"]
+            for question in self.questions
+            if question["response_mode"] != "handwriting"
+            for region in question["answer_regions"]
+            if "expected_selected" in region
+        }
+        self.assertEqual(selected, GOLDEN_EXPECTED_SELECTED)
 
     def test_assignment_pages_structure(self) -> None:
         pages = self.data["assignment_pages"]
@@ -543,13 +683,14 @@ class MagicJoy5Unit1GoldenDatasetTests(unittest.TestCase):
                     page["sequence"],
                     page["workbook_page"],
                     page["sections"],
+                    page["template_image"],
                 )
                 for page in pages
             ],
             [
-                ("MJ5-U1-P1", 1, 4, ["A", "B"]),
-                ("MJ5-U1-P2", 2, 5, ["C", "D"]),
-                ("MJ5-U1-P3", 3, 6, ["E", "F"]),
+                ("MJ5-U1-P1", 1, 4, ["A", "B"], "templates/MJ5-U1-P1.png"),
+                ("MJ5-U1-P2", 2, 5, ["C", "D"], "templates/MJ5-U1-P2.png"),
+                ("MJ5-U1-P3", 3, 6, ["E", "F"], "templates/MJ5-U1-P3.png"),
             ],
         )
 

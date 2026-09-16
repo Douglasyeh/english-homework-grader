@@ -42,6 +42,7 @@ Help teachers grade scanned homework faster while keeping recognition honest: th
 - The system must preserve what the student actually wrote.
 - The recognition system must **not** silently correct a student's spelling based on the answer key.
 - Low-confidence handwriting must be sent to manual review rather than guessed.
+- Young students often write outside the printed answer blank. Canonical template coordinates stay tight on the expected blank; runtime crops may add padding and later ink-aware expansion, limited by a max region. Overflow must not silently steal a neighboring answer.
 
 ## Out of scope for this documentation step
 

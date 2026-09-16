@@ -48,8 +48,19 @@ Each assignment page has:
 - `sequence` — 1-based position in this unit's homework (1, 2, 3, …)
 - `workbook_page` — printed page number in the textbook/workbook (for Magic Joy 5 Unit 1: 4, 5, 6)
 - `sections` — section ids that appear on this sheet (ids only; questions stay on the `questions` array)
+- `template_image` — relative path to the canonical template PNG for this assignment page, under the unit folder
 
-These are **not** the same as an uploaded PDF `page_index` (0-based position in the teacher's scan).
+These are **not** the same as an uploaded PDF `page_index` (0-based position in the teacher's scan) or the upload response's 1-based PDF display `page_number`.
+
+Canonical template files for Magic Joy 5 Unit 1 are expected at:
+
+```
+data/textbooks/magic-joy-5/units/unit-1/templates/MJ5-U1-P1.png
+data/textbooks/magic-joy-5/units/unit-1/templates/MJ5-U1-P2.png
+data/textbooks/magic-joy-5/units/unit-1/templates/MJ5-U1-P3.png
+```
+
+Those files are in the Golden Dataset unit folder. Alignment still requires a geometric transform before template coordinates may be applied to a student scan. Missing templates remain `template_missing`; present templates without a transform remain `not_aligned`.
 
 ### Question
 
@@ -202,6 +213,15 @@ Conceptual payload:
 
 Typical flow: low-confidence recognition stays `needs_manual_review` on recognition and `not_graded` (or `needs_manual_review`) on grading until the teacher supplies text or a decision.
 
+Crop-time examples that should also route toward `needs_manual_review` (before or instead of guessing a blank):
+
+- ink crosses two neighboring answer regions ambiguously
+- the expanded crop has already hit `max_region` but handwriting still continues
+- two blanks appear connected by ink
+- later recognition confidence stays low after padded, expanded, or fallback crops
+- page-alignment confidence is insufficient
+
+
 ## Why raw recognized text must never be overwritten
 
 `raw_recognized_text` is the system's record of **what the student actually wrote**, as read from the page.
@@ -289,7 +309,18 @@ They are stored separately because:
 - What a region means depends on `response_mode` (handwriting blank vs printed selectable option).
 - A question may have **one or many** regions.
 - Each region has a unique `region_id` within the question.
-- Coordinates (`x`, `y`, `width`, `height`) can be filled later; they may be `null` until page mapping exists.
+- Coordinates (`x`, `y`, `width`, `height`) are **normalized canonical template-page coordinates**, not pixels on a particular student PNG.
+
+  - `x` = left / page width
+  - `y` = top / page height
+  - `width` = region width / page width
+  - `height` = region height / page height
+  - each value is in `[0.0, 1.0]`
+  - `x + width <= 1.0` and `y + height <= 1.0`
+
+Coordinates answer **WHERE** the answer is expected on the canonical template. They do **not** encode the correct answer (`expected_answer` stays separate), and they are **not** a hard OCR crop fence. Runtime crops may add padding and later ink-aware expansion; those derived boxes are never written back into `assignment.json`. Magic Joy 5 Unit 1 canonical coordinates are already measured and must not be enlarged to compensate for handwriting that overflows a printed blank.
+
+Student pages must be **aligned to the template** before these coordinates are used for cropping. Do not crop an unaligned student PNG with template coordinates.
 
 #### Handwriting regions
 
@@ -331,11 +362,11 @@ Example shape (not real Magic Joy 5 content):
 }
 ```
 
-Blank 1 maps to `Do` and region `..._b1`. Blank 2 maps to `don't` and region `..._b2`. Later, handwriting recognition reads each region independently.
+Blank 1 maps to `Do` and region `..._b1`. Blank 2 maps to `don't` and region `..._b2`. Later, handwriting recognition reads each blank primarily from its own crop. If handwriting crosses blank boundaries, recognition may additionally inspect a question-level or answer-line **fallback region** (the union of those blanks, padded at runtime). The fallback does not replace the per-blank canonical regions. Ambiguous splits go to `needs_manual_review` rather than a silent assignment to the wrong blank.
 
 #### Selection regions
 
-For `circle_selection` and `check_selection`, regions are **selectable printed choices**, not handwriting boxes.
+For `circle_selection` and `check_selection`, regions are **selectable printed choices**, not handwriting boxes. Runtime crops may still add a modest mark margin: circles often extend outside a printed word; checks sit in a small box or circle. Do not reuse handwriting padding values for these modes.
 
 Each option should conceptually support:
 

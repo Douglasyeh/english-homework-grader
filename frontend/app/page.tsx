@@ -14,6 +14,9 @@ type PagePreview = {
   assignment_page_id?: string;
   assignment_page_sequence?: number;
   workbook_page?: number;
+  alignment_status?: string;
+  aligned_image_url?: string | null;
+  debug_overlay_url?: string | null;
 };
 
 type StudentGroup = {
@@ -186,8 +189,14 @@ export default function Home() {
               <p>Remaining page count: {result.remaining_page_count}</p>
             </div>
           ) : null}
-          {result.grouping_status === "grouped"
-            ? result.student_groups.map((group) => (
+          {result.grouping_status === "grouped" ? (
+            <>
+              <p className={styles.debugNote}>
+                Debug: alignment status is shown on each page. Region overlays
+                appear only after a canonical template is aligned. Coordinates
+                locate inspection areas; they are not answers.
+              </p>
+              {result.student_groups.map((group) => (
                 <div key={group.student_group_id} className={styles.group}>
                   <h3>Student Group {group.group_number}</h3>
                   <div className={styles.previews}>
@@ -195,23 +204,24 @@ export default function Home() {
                       <PageThumb
                         key={page.page_index}
                         page={page}
-                        caption={`Assignment Page ${page.assignment_page_sequence} (Workbook ${page.workbook_page})`}
+                        caption={`Assignment Page ${page.assignment_page_sequence} (Workbook ${page.workbook_page}) · ${page.alignment_status ?? "unknown"}`}
                       />
                     ))}
                   </div>
                 </div>
-              ))
-            : (
-                <div className={styles.previews}>
-                  {result.pages.map((page) => (
-                    <PageThumb
-                      key={page.page_index}
-                      page={page}
-                      caption={`Page ${page.page_number}`}
-                    />
-                  ))}
-                </div>
-              )}
+              ))}
+            </>
+          ) : (
+            <div className={styles.previews}>
+              {result.pages.map((page) => (
+                <PageThumb
+                  key={page.page_index}
+                  page={page}
+                  caption={`Page ${page.page_number}`}
+                />
+              ))}
+            </div>
+          )}
         </section>
       ) : null}
     </main>

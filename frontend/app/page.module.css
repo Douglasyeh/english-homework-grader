@@ -102,3 +102,9 @@
   color: #b00020;
   text-align: left;
 }
+
+.debugNote {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  text-align: left;
+}

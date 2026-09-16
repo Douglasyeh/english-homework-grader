@@ -31,19 +31,22 @@
       "assignment_page_id": "MJ5-U1-P1",
       "sequence": 1,
       "workbook_page": 4,
-      "sections": ["A", "B"]
+      "sections": ["A", "B"],
+      "template_image": "templates/MJ5-U1-P1.png"
     },
     {
       "assignment_page_id": "MJ5-U1-P2",
       "sequence": 2,
       "workbook_page": 5,
-      "sections": ["C", "D"]
+      "sections": ["C", "D"],
+      "template_image": "templates/MJ5-U1-P2.png"
     },
     {
       "assignment_page_id": "MJ5-U1-P3",
       "sequence": 3,
       "workbook_page": 6,
-      "sections": ["E", "F"]
+      "sections": ["E", "F"],
+      "template_image": "templates/MJ5-U1-P3.png"
     }
   ],
   "questions": [
@@ -62,20 +65,20 @@
           "option_id": "MJ5-U1-A1-O1",
           "label": "ping",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.165,
+          "y": 0.198,
+          "width": 0.135,
+          "height": 0.044
         },
         {
           "region_id": "MJ5-U1-A1-O2",
           "option_id": "MJ5-U1-A1-O2",
           "label": "pink",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.165,
+          "y": 0.25,
+          "width": 0.135,
+          "height": 0.044
         }
       ],
       "notes": ""
@@ -95,20 +98,20 @@
           "option_id": "MJ5-U1-A2-O1",
           "label": "sunk",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.445,
+          "y": 0.198,
+          "width": 0.135,
+          "height": 0.044
         },
         {
           "region_id": "MJ5-U1-A2-O2",
           "option_id": "MJ5-U1-A2-O2",
           "label": "sung",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.445,
+          "y": 0.25,
+          "width": 0.135,
+          "height": 0.044
         }
       ],
       "notes": ""
@@ -128,20 +131,20 @@
           "option_id": "MJ5-U1-A3-O1",
           "label": "wink",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.748,
+          "y": 0.198,
+          "width": 0.14,
+          "height": 0.044
         },
         {
           "region_id": "MJ5-U1-A3-O2",
           "option_id": "MJ5-U1-A3-O2",
           "label": "wing",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.748,
+          "y": 0.25,
+          "width": 0.14,
+          "height": 0.044
         }
       ],
       "notes": ""
@@ -161,20 +164,20 @@
           "option_id": "MJ5-U1-A4-O1",
           "label": "rank",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.165,
+          "y": 0.365,
+          "width": 0.135,
+          "height": 0.046
         },
         {
           "region_id": "MJ5-U1-A4-O2",
           "option_id": "MJ5-U1-A4-O2",
           "label": "rang",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.165,
+          "y": 0.418,
+          "width": 0.135,
+          "height": 0.046
         }
       ],
       "notes": ""
@@ -194,20 +197,20 @@
           "option_id": "MJ5-U1-A5-O1",
           "label": "Ming",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.445,
+          "y": 0.365,
+          "width": 0.135,
+          "height": 0.046
         },
         {
           "region_id": "MJ5-U1-A5-O2",
           "option_id": "MJ5-U1-A5-O2",
           "label": "mink",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.445,
+          "y": 0.418,
+          "width": 0.135,
+          "height": 0.046
         }
       ],
       "notes": ""
@@ -227,20 +230,20 @@
           "option_id": "MJ5-U1-A6-O1",
           "label": "think",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.738,
+          "y": 0.365,
+          "width": 0.15,
+          "height": 0.046
         },
         {
           "region_id": "MJ5-U1-A6-O2",
           "option_id": "MJ5-U1-A6-O2",
           "label": "thing",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.738,
+          "y": 0.418,
+          "width": 0.15,
+          "height": 0.046
         }
       ],
       "notes": ""
@@ -260,20 +263,20 @@
           "option_id": "MJ5-U1-B1-O1",
           "label": null,
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.225,
+          "y": 0.7,
+          "width": 0.048,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-B1-O2",
           "option_id": "MJ5-U1-B1-O2",
           "label": null,
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.452,
+          "y": 0.7,
+          "width": 0.048,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -293,20 +296,20 @@
           "option_id": "MJ5-U1-B2-O1",
           "label": null,
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.698,
+          "y": 0.7,
+          "width": 0.048,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-B2-O2",
           "option_id": "MJ5-U1-B2-O2",
           "label": null,
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.898,
+          "y": 0.7,
+          "width": 0.048,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -326,20 +329,20 @@
           "option_id": "MJ5-U1-B3-O1",
           "label": null,
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.225,
+          "y": 0.863,
+          "width": 0.048,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-B3-O2",
           "option_id": "MJ5-U1-B3-O2",
           "label": null,
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.452,
+          "y": 0.863,
+          "width": 0.048,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -359,20 +362,20 @@
           "option_id": "MJ5-U1-B4-O1",
           "label": null,
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.698,
+          "y": 0.863,
+          "width": 0.048,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-B4-O2",
           "option_id": "MJ5-U1-B4-O2",
           "label": null,
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.898,
+          "y": 0.863,
+          "width": 0.048,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -387,6 +390,13 @@
       "expected_answer": { "option": "A", "selected": ["MJ5-U1-C1-O1"] },
       "page_number": 5,
       "answer_regions": [
+        {
+          "region_id": "MJ5-U1-C1-INPUT",
+          "x": 0.125,
+          "y": 0.176,
+          "width": 0.068,
+          "height": 0.042
+        },
         {
           "region_id": "MJ5-U1-C1-O1",
           "option_id": "MJ5-U1-C1-O1",
@@ -433,6 +443,13 @@
       "expected_answer": { "option": "B", "selected": ["MJ5-U1-C2-O2"] },
       "page_number": 5,
       "answer_regions": [
+        {
+          "region_id": "MJ5-U1-C2-INPUT",
+          "x": 0.125,
+          "y": 0.28,
+          "width": 0.068,
+          "height": 0.042
+        },
         {
           "region_id": "MJ5-U1-C2-O1",
           "option_id": "MJ5-U1-C2-O1",
@@ -488,30 +505,30 @@
           "option_id": "MJ5-U1-D1-O1",
           "label": "doesn't",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.478,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D1-O2",
           "option_id": "MJ5-U1-D1-O2",
           "label": "don't",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.508,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D1-O3",
           "option_id": "MJ5-U1-D1-O3",
           "label": "aren't",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.538,
+          "width": 0.035,
+          "height": 0.026
         }
       ],
       "notes": ""
@@ -535,30 +552,30 @@
           "option_id": "MJ5-U1-D2-O1",
           "label": "is",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.6,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D2-O2",
           "option_id": "MJ5-U1-D2-O2",
           "label": "are",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.63,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D2-O3",
           "option_id": "MJ5-U1-D2-O3",
           "label": "do",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.66,
+          "width": 0.035,
+          "height": 0.026
         }
       ],
       "notes": ""
@@ -583,30 +600,30 @@
           "option_id": "MJ5-U1-D3-O1",
           "label": "have",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.722,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D3-O2",
           "option_id": "MJ5-U1-D3-O2",
           "label": "has",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.752,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D3-O3",
           "option_id": "MJ5-U1-D3-O3",
           "label": "want",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.782,
+          "width": 0.035,
+          "height": 0.026
         }
       ],
       "notes": ""
@@ -631,30 +648,30 @@
           "option_id": "MJ5-U1-D4-O1",
           "label": "she",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.852,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D4-O2",
           "option_id": "MJ5-U1-D4-O2",
           "label": "they",
           "expected_selected": true,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.882,
+          "width": 0.035,
+          "height": 0.026
         },
         {
           "region_id": "MJ5-U1-D4-O3",
           "option_id": "MJ5-U1-D4-O3",
           "label": "he",
           "expected_selected": false,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.708,
+          "y": 0.912,
+          "width": 0.035,
+          "height": 0.026
         }
       ],
       "notes": ""
@@ -672,10 +689,10 @@
         {
           "region_id": "MJ5-U1-E1-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.428,
+          "y": 0.155,
+          "width": 0.125,
+          "height": 0.05
         }
       ],
       "notes": ""
@@ -693,18 +710,18 @@
         {
           "region_id": "MJ5-U1-E2-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.252,
+          "y": 0.295,
+          "width": 0.12,
+          "height": 0.045
         },
         {
           "region_id": "MJ5-U1-E2-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.432,
+          "y": 0.295,
+          "width": 0.122,
+          "height": 0.045
         }
       ],
       "notes": ""
@@ -722,18 +739,18 @@
         {
           "region_id": "MJ5-U1-E3-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.348,
+          "y": 0.392,
+          "width": 0.115,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-E3-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.392,
+          "y": 0.445,
+          "width": 0.115,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -751,18 +768,18 @@
         {
           "region_id": "MJ5-U1-E4-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.248,
+          "y": 0.525,
+          "width": 0.125,
+          "height": 0.048
         },
         {
           "region_id": "MJ5-U1-E4-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.635,
+          "y": 0.568,
+          "width": 0.115,
+          "height": 0.048
         }
       ],
       "notes": ""
@@ -780,18 +797,18 @@
         {
           "region_id": "MJ5-U1-F1-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.228,
+          "y": 0.722,
+          "width": 0.142,
+          "height": 0.032
         },
         {
           "region_id": "MJ5-U1-F1-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.382,
+          "y": 0.722,
+          "width": 0.168,
+          "height": 0.032
         }
       ],
       "notes": ""
@@ -809,34 +826,34 @@
         {
           "region_id": "MJ5-U1-F2-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.115,
+          "y": 0.812,
+          "width": 0.152,
+          "height": 0.034
         },
         {
           "region_id": "MJ5-U1-F2-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.308,
+          "y": 0.812,
+          "width": 0.128,
+          "height": 0.034
         },
         {
           "region_id": "MJ5-U1-F2-B3",
           "blank_number": 3,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.448,
+          "y": 0.812,
+          "width": 0.128,
+          "height": 0.034
         },
         {
           "region_id": "MJ5-U1-F2-B4",
           "blank_number": 4,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.588,
+          "y": 0.812,
+          "width": 0.185,
+          "height": 0.034
         }
       ],
       "notes": ""
@@ -854,50 +871,50 @@
         {
           "region_id": "MJ5-U1-F3-B1",
           "blank_number": 1,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.185,
+          "y": 0.886,
+          "width": 0.14,
+          "height": 0.028
         },
         {
           "region_id": "MJ5-U1-F3-B2",
           "blank_number": 2,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.338,
+          "y": 0.886,
+          "width": 0.142,
+          "height": 0.028
         },
         {
           "region_id": "MJ5-U1-F3-B3",
           "blank_number": 3,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.492,
+          "y": 0.886,
+          "width": 0.158,
+          "height": 0.028
         },
         {
           "region_id": "MJ5-U1-F3-B4",
           "blank_number": 4,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.118,
+          "y": 0.928,
+          "width": 0.152,
+          "height": 0.028
         },
         {
           "region_id": "MJ5-U1-F3-B5",
           "blank_number": 5,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.405,
+          "y": 0.928,
+          "width": 0.145,
+          "height": 0.028
         },
         {
           "region_id": "MJ5-U1-F3-B6",
           "blank_number": 6,
-          "x": null,
-          "y": null,
-          "width": null,
-          "height": null
+          "x": 0.562,
+          "y": 0.928,
+          "width": 0.175,
+          "height": 0.028
         }
       ],
       "notes": ""

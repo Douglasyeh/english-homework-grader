@@ -115,13 +115,14 @@ class UploadSubmissionTests(unittest.TestCase):
                     page["page_index"],
                     page["assignment_page_id"],
                     page["workbook_page"],
+                    page["alignment_status"],
                 )
                 for page in mapped
             ],
             [
-                (0, "MJ5-U1-P1", 4),
-                (1, "MJ5-U1-P2", 5),
-                (2, "MJ5-U1-P3", 6),
+                (0, "MJ5-U1-P1", 4, "not_aligned"),
+                (1, "MJ5-U1-P2", 5, "not_aligned"),
+                (2, "MJ5-U1-P3", 6, "not_aligned"),
             ],
         )
 
